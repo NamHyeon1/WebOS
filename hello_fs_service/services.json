@@ -1,0 +1,9 @@
+{
+  "id": "com.sample.fs.service",
+  "description": "HelloWorld Service",
+  "services": [
+    {
+      "name": "com.sample.fs.service"
+    }
+  ]
+}

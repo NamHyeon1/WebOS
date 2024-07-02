@@ -1,0 +1,101 @@
+<!--
+Copyright (c) 2020-2024 LG Electronics Inc.
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example Web App</title>
+<style type="text/css">
+    /*
+    body {
+        width: 100%;
+        height: 100%;
+        background-color:#202020;
+    }
+    
+    div {
+        position:absolute;
+        height:100%;
+        width:100%;
+        display: table;
+    }
+    */
+    
+    textarea {
+        margin-top:200px;
+        height:100px;
+        width:300px;
+    }
+
+    input{
+        margin: 0;
+        height: 100px;
+        width: 300px;
+    }
+</style>
+<script type="text/javascript">
+window.onload = function() {
+    var bridge = new WebOSServiceBridge();
+    /*
+     *  getTimeApi calls gettime of systemservice, a module in the platform.
+     */
+    
+
+    function fsWrite_callback(msg){
+        var arg = JSON.parse(msg);
+        console.log("arg : " + arg);
+        if (arg.returnValue) {
+            console.log("[APP_NAME: example web app] CALLWRITE_SUCCESS response : " + arg.reply);
+        }
+        else {
+            console.error("[APP_NAME: example web app] CALLWRITE_FAILED error : " + arg.errorMsg);
+        }
+    }
+
+    function fsRead_callback(msg){
+        var arg = JSON.parse(msg);
+        if (arg.returnValue) {
+            document.getElementById("readData").innerHTML = arg.text;
+            console.log("[APP_NAME: example web app] CALLREAD_SUCCESS response : " + arg.reply);
+        }
+        else {
+            console.error("[APP_NAME: example web app] CALLREAD_FAILED errorText" + arg.errorMsg);
+        }
+    }
+
+    document.getElementById("writeButton").onclick = function() {
+        var writeFileApi = 'luna://com.sample.fs.service/writeFile';
+        var writeText = document.getElementById("inputText").value;
+        var writeParams = '{"text": "' + writeText +'"}';
+        console.log("writeparam : " + writeParams);
+        bridge.onservicecallback = fsWrite_callback;
+        bridge.call(writeFileApi, writeParams);
+    }
+
+    document.getElementById("readButton").onclick = function() {
+        var readFileApi = 'luna://com.sample.fs.service/readFile';
+        var readParams = '{}';
+        bridge.onservicecallback = fsRead_callback;
+        bridge.call(readFileApi, readParams);
+    }
+}
+</script>
+</head>
+<body>
+    <div>
+        <form>
+        <input type="text" id="inputText"> 
+        <input type = "button" id="writeButton" value="Write file">
+        <input type="button" id="readButton" value="Read file">
+        <br/>
+        </form>
+    </div>
+    <div>
+        <textarea id="readData">
+        </textarea>
+    </div>
+</body>
+</html>

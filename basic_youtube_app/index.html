@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+</head>
+<body>
+    <script>
+
+        window.onload = function() {
+
+            var bridge = new WebOSServiceBridge();
+
+            var LaunchApi = 'luna://com.webos.service.applicationmanager/launch';
+            var LaunchParams = '{"id":"com.webos.app.test.youtube"}';
+        
+            function launch_callback(msg){
+                var arg = JSON.parse(msg);
+                if (arg.returnValue) {
+                    console.log("[APP_NAME: example web app] CALLLAUNCH_SUCCESS response : " + arg.Response);
+                }
+                else {
+                    console.error("[APP_NAME: example web app] CALLLAUNCH_FAILED errorText : " + arg.errorText);
+                }
+            }
+    
+            document.getElementById("runapp").addEventListener("click", function(){
+                bridge.onservicecallback = launch_callback;
+                bridge.call(LaunchApi, LaunchParams);
+            });
+
+
+        }
+        
+
+        
+    </script>
+    <button id="runapp">Launch app</button>
+</body>
+</html>

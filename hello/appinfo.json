@@ -1,0 +1,14 @@
+{
+  "id": "com.sample.knh",
+  "version": "1.0.0",
+  "vendor": "My Company",
+  "type": "web",
+  "main": "index.html",
+  "title": "first_service",
+  "icon": "icon.png",
+  "requiredPermissions": [
+    "time.query",
+    "activity.operation",
+    "notification.operation"
+  ]
+}

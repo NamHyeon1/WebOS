@@ -1,0 +1,13 @@
+{
+  "id": "com.domain.sample",
+  "version": "1.0.1",
+  "vendor": "My Company",
+  "type": "web",
+  "main": "index.html",
+  "title": "simple-jquery-drawing-app",
+  "icon": "icon.png",
+  "requiredPermissions": [
+    "time.query",
+    "activity.operation"
+  ]
+}

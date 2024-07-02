@@ -1,0 +1,14 @@
+{
+  "id": "com.domain.youtube",
+  "version": "1.0.0",
+  "vendor": "My Company",
+  "type": "web",
+  "main": "index.html",
+  "title": "test_youtube",
+  "icon": "icon.png",
+  "requiredPermissions": [
+    "time.query",
+    "activity.operation",
+    "application.launcher"
+  ]
+}
